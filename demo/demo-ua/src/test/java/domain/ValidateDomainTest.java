@@ -17,6 +17,7 @@ class ValidateDomainTest {
             "exâmple.org",
             "xn--exmple-xta.org",
             "exâmple.ไทย",
+            "ไทยร่วมใจ.com",
             "exâmple.xn--o3cw4h",
             "xn--exmple-xta.xn--o3cw4h",
     })
