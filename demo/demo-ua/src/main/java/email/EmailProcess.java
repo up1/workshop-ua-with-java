@@ -8,12 +8,13 @@ import java.util.regex.Pattern;
 public class EmailProcess {
 
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
-            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+            Pattern.compile(".*@+.*\\..*");
 
     public boolean send(String email) {
 
         // 1. Validate email
-        if(!isEmailValid(email)) {
+        EmailValidation emailValidation = new EmailValidation();
+        if(!emailValidation.isValidWithApacheCommons(email)) {
             throw new RuntimeException("Email invalid");
         }
 
