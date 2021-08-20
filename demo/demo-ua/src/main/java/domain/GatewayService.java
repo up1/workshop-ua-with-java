@@ -15,9 +15,8 @@ public class GatewayService {
     }
 
     public boolean callByDomain02(String domainName) {
-        HttpUrl url = HttpUrl.parse("http://" + domainName);
         OkHttpClient httpClient = new OkHttpClient();
-        Request request = new Request.Builder().url(url).build();
+        Request request = new Request.Builder().url("http://" + domainName).build();
         try {
             Response response = httpClient.newCall(request).execute();
             return true;
