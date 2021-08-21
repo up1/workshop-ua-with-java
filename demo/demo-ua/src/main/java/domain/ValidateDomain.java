@@ -38,4 +38,18 @@ public class ValidateDomain {
         validator.nameToASCII(domainName, output, info);
         return !info.hasErrors();
     }
+
+    public String normalizeData(String domainName) {
+        IDNA validator = IDNA.getUTS46Instance(
+                IDNA.NONTRANSITIONAL_TO_ASCII
+                        | IDNA.NONTRANSITIONAL_TO_UNICODE
+                        | IDNA.CHECK_BIDI
+                        | IDNA.CHECK_CONTEXTJ
+                        | IDNA.CHECK_CONTEXTO
+                        | IDNA.USE_STD3_RULES);
+        StringBuilder output = new StringBuilder();
+        IDNA.Info info = new IDNA.Info();
+        validator.nameToASCII(domainName, output, info);
+        return output.toString();
+    }
 }
