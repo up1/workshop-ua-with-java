@@ -7,6 +7,7 @@
 * Java
   * [Apache Commoms Validator](https://github.com/apache/commons-validator)
   * [Google Guava](https://github.com/google/guava)
+* [Popular Libraries](https://circleid.com/posts/20210712-acceptance-of-all-domain-names-in-open-source-software/)
 
 
 ## Reference
