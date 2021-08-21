@@ -3,9 +3,15 @@ package email;
 import com.ibm.icu.text.IDNA;
 import com.ibm.icu.text.Normalizer2;
 import domain.ValidateDomain;
+import jakarta.mail.Message;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
 import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 
+import java.util.Date;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,6 +42,7 @@ public class EmailProcess {
         }
 
         // TODO Send Email
+        sendEmail(normalizedEmail);
 
         return true;
     }
@@ -69,6 +76,42 @@ public class EmailProcess {
             return true;
         } catch (AddressException e) {
             return false;
+        }
+    }
+
+
+    public void sendEmail(String email) {
+        try {
+            Properties props = System.getProperties();
+
+            props.put("mail.smtp.host", "localhost");
+            props.put("mail.mime.allowutf8", true);
+            props.put("mail.smtp.port", 1025);
+
+            Session session = Session.getInstance(props, null);
+
+            MimeMessage msg = new MimeMessage(session);
+
+            // Set message headers
+            msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+            msg.addHeader("format", "flowed");
+            msg.addHeader("Content-Transfer-Encoding", "8bit");
+
+            msg.setFrom(new InternetAddress("testing-java@eai.com", "NoReply-JD"));
+            msg.setReplyTo(InternetAddress.parse("testing-java@eai.com", false));
+
+            msg.setSubject("X.com subscription!", "UTF-8");
+            msg.setText("Congratulation, you are subscribed to X.com!", "UTF-8");
+            msg.setSentDate(new Date());
+
+            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email, false));
+
+            // Send
+            Transport.send(msg);
+
+            System.out.println("Email sent successfully!!");
+        } catch (Exception e) {
+            throw new RuntimeException("Can't send email");
         }
     }
 

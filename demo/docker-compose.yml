@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  mailhog-eai: # fake smtp server to test SMTPUTF8 compliance
+    container_name: mailhog-eai
+    image: mailhog:eai
+    build:
+      context: ./mailhog-eai
+      dockerfile: Dockerfile
+    ports: 
+      - "1025:1025/tcp"
+      - "8025:8025/tcp"
